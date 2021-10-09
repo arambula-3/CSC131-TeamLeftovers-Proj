@@ -1,0 +1,29 @@
+{
+  "name": "hello-world-app",
+  "version": "1.0.0",
+  "description": "basic hello world test",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arambula-3/CSC131-TeamLeftovers-Proj.git"
+  },
+  "keywords": [
+    "MEAN",
+    "Mongo",
+    "Express",
+    "Angular",
+    "Nodejs"
+  ],
+  "author": "Raul",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arambula-3/CSC131-TeamLeftovers-Proj/issues"
+  },
+  "homepage": "https://github.com/arambula-3/CSC131-TeamLeftovers-Proj#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
