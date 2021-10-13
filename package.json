@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/arambula-3/CSC131-TeamLeftovers-Proj#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^6.0.10"
   }
 }
