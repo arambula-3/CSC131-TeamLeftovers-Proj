@@ -1,24 +1,21 @@
 // modules =================================================
+require('rootpath')();
 const express = require('express');
 const app = express();
 var mongoose = require('mongoose');
-    passport = require("passport"),
-    bodyParser = require("body-parser"),
-    LocalStrategy = require("passport-local"),
-    passportLocalMongoose = require("passport-local-mongoose"),
-    User = require("./models/users");
+var session = require('express-session');
+var bodyParser = require('body-parser');
+var expressJwt = require('express-jwt');
+var config = require('config.json');
 
-app.set("view engine", "ejs");
-app.use(bodyParser.urlencoded({ extended: true }));
+app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(session({ secret: config.secret, resave: false, saveUninitialized: true }));
 
-app.use(require("express-session")({
-    secret: "Rusty is a dog",
-    resave: false,
-    saveUninitialized: false
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
+// use JWT auth to secure the api
+app.use('/api', expressJwt({ secret: config.secret, algorithms: ['HS256'] }).unless({ path: ['/api/users/authenticate', '/api/users/register'] }));
 
 
 //set our port
@@ -34,40 +31,18 @@ mongoose.connect(db.url); //Mongoose connection created
 
 
 // frontend routes =========================================================
-app.get('/', function(req, res) {res.render('home')});
 
-//login form
-app.get("/login", function (req, res) {
-    res.render("login");
-});
+// routes
+app.use('/login', require('./controllers/login.controller'));
+app.use('/register', require('./controllers/register.controller'));
+app.use('/app', require('./controllers/app.controller'));
+app.use('/api/users', require('./controllers/users.controller'));
 
-//Handling user login
-app.post("/login", passport.authenticate("local", {
-    successRedirect: "/secret",
-    failureRedirect: "/login"
-}), function (req, res) {
-});
-
-// defining route
-app.get('/tproute', function (req, res) {
-   res.send('This is routing for the application developed using Node and Express...');
-});
-
-// sample api route
-// grab the user model we just created
-var User = require('./models/users');
-app.get('/api/users', function(req, res) {
-   // use mongoose to get all users in the database
-   User.find(function(err, users) {
-      // if there is an error retrieving, send the error.
-      // nothing after res.send(err) will execute
-      if (err)
-         res.send(err);
-      res.json(users); // return all students in JSON format
-   });
+// make '/app' default route
+app.get('/', function (req, res) {
+    return res.redirect('/app');
 });
 
 // startup our app at http://localhost:3000
 app.listen(port);
 console.log('Example app listening on port 3000!');
-

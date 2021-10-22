@@ -1,15 +1,14 @@
 <h1> Sign up form </h1>
 
 <form action="/register" method="POST">
-	<input type="text" name="username"
-		placeholder="username">
-	<input type="password" name="password"
-		placeholder="password">
-	<button>Submit</button>
+	<label for="firstName">First name</label>
+	<input type="text" name="firstName" id="firstName" class="form-control" value="<%= locals.firstName || '' %>" required />
+	<label for="lastName">Last name</label>
+	<input type="text" name="lastName" id="lastName" class="form-control" value="<%= locals.lastName || '' %>" required />
+	<label for="username">Username</label>
+	<input type="text" name="username" id="username" class="form-control" value="<%= locals.username || '' %>" required />
+	<label for="password">Password</label>
+	<input type="password" name="password" id="password" class="form-control" required />
+	<button type="submit" class="btn btn-primary">Register</button>
 </form>
-
-<h1>Hello world this is our app</h1>
-
-<li><a href="/register">Sign up!!</a></li>
 <li><a href="/login">Login</a></li>
-<li><a href="/logout">Logout</a></li>

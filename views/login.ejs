@@ -1,15 +1,11 @@
-<h1>login</h1>
+<h1>Hello world this is our app!</h1>
+<h2>login</h2>
 
 <form action="/login" method="POST">
-	<input type="text" name="username"
-		placeholder="username">
-	<input type="password" name="password"
-		placeholder="password">
-	<button>login</button>
+	<label for="username">Username</label>
+	<input type="text" name="username" id="username" value="<%= locals.username || '' %>" class="form-control" />
+	<label for="password">Password</label>
+	<input type="password" name="password" id="password" class="form-control" />
+	<button type="submit" class="btn btn-primary">Login</button>
 </form>
-
-<h1>Hello world this is our app</h1>
-
-<li><a href="/register">Sign up!!</a></li>
-<li><a href="/login">Login</a></li>
-<li><a href="/logout">Logout</a></li>
+<li><a href="/register">Register</a></li>
