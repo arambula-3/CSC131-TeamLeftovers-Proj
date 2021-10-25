@@ -10,7 +10,7 @@ router.get('/', function (req, res) {
 router.post('/', function (req, res) {
     // register using api to maintain clean separation between layers
     request.post({
-        url: config.apiUrl + '/users/register',
+        url: config.apiUrl + '/users/register', // fixed the register
         form: req.body,
         json: true
     }, function (error, response, body) {
@@ -18,7 +18,7 @@ router.post('/', function (req, res) {
             return res.render('register', { error: 'An error occurred' });
         }
 
-        if (response.statusCode !== 200) {
+        if (response.statusCode !== 200) { // request not successful
             return res.render('register', {
                 error: response.body,
                 firstName: req.body.firstName,
