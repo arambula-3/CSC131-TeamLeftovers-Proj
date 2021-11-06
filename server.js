@@ -33,10 +33,12 @@ mongoose.connect(db.url); //Mongoose connection created
 // frontend routes =========================================================
 
 // routes
+app.use('/homepage', require('./controllers/homepage.controller'));
 app.use('/login', require('./controllers/login.controller'));
 app.use('/register', require('./controllers/register.controller'));
 app.use('/app', require('./controllers/app.controller'));
 app.use('/api/users', require('./controllers/users.controller'));
+app.use(express.static("public"));
 
 // make '/app' default route
 app.get('/', function (req, res) {
