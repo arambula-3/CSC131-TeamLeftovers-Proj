@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>MEAN Stack User Registration and Login Example Application</title>
+    <title>Set App</title>
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
     <link href="app-content/app.css" rel="stylesheet" />
@@ -13,6 +13,12 @@
         <ul class="nav nav-tabs">
             <li ng-class="{active: activeTab === 'home'}"><a ui-sref="home">Home</a></li>
             <li ng-class="{active: activeTab === 'account'}"><a ui-sref="account">Account</a></li>
+            <!-- image DB tab -->
+            <li ng-class="{active: activeTab === 'imageDB'}"><a ui-sref="imageDB">Image Database</a></li>
+            <li ng-class="{active: activeTab === 'viewSets'}"><a ui-sref="viewSets">View Sets</a></li>
+            <li ng-class="{active: activeTab === 'createSets'}"><a ui-sref="createSets">Create Sets</a></li>
+            <li ng-class="{active: activeTab === 'editSets'}"><a ui-sref="editSets">Edit Sets</a></li>
+            <li ng-class="{active: activeTab === 'deleteSets'}"><a ui-sref="deleteSets">Delete Sets</a></li>
             <li><a href="/login" target="_self">Logout</a></li>
         </ul>
         <div class="flash-message" ng-if="flash">
@@ -37,5 +43,11 @@
     <script src="app-services/flash.service.js"></script>
     <script src="home/index.controller.js"></script>
     <script src="account/index.controller.js"></script>
+    <!-- imageDB controller -->
+    <script src="imageDB/index.controller.js"></script>
+    <script src="sets/viewSets/index.controller.js"></script>
+    <script src="sets/createSets/index.controller.js"></script>
+    <script src="sets/editSets/index.controller.js"></script>
+    <script src="sets/deleteSets/index.controller.js"></script>
 </body>
 </html>

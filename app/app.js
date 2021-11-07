@@ -24,6 +24,46 @@
                 controller: 'Account.IndexController',
                 controllerAs: 'vm',
                 data: { activeTab: 'account' }
+            })//;
+            // image DB
+            .state('imageDB', {
+                url: '/imageDB',
+                templateUrl: 'imageDB/index.html',
+                controller: 'imageDB.IndexController',
+                controllerAs: 'vm',
+                data: { activeTab: 'imageDB' }
+            })
+            // view sets
+            .state('viewSets', {
+                url: '/viewSets',
+                templateUrl: 'sets/viewSets/index.html',
+                controller: 'sets/viewSets/viewSets.IndexController',
+                controllerAs: 'vm',
+                data: { activeTab: 'View Sets' }
+            })
+            // create sets
+            .state('createSets', {
+                url: '/createSets',
+                templateUrl: 'sets/createSets/index.html',
+                controller: 'sets/createSets/createSets.IndexController',
+                controllerAs: 'vm',
+                data: { activeTab: 'Create Sets' }
+            })
+            // edit sets
+            .state('editSets', {
+                url: '/editSets',
+                templateUrl: 'sets/editSets/index.html',
+                controller: 'sets/editSets/editSets.IndexController',
+                controllerAs: 'vm',
+                data: { activeTab: 'Edit Sets' }
+            })
+            // delete sets
+            .state('deleteSets', {
+                url: '/deleteSets',
+                templateUrl: 'sets/deleteSets/index.html',
+                controller: 'sets/deleteSets/deleteSets.IndexController',
+                controllerAs: 'vm',
+                data: { activeTab: 'Delete Sets' }
             });
     }
 
