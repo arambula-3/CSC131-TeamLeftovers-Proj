@@ -67,15 +67,15 @@ function updateUser(req, res) {
             res.status(400).send(err);
         });
 }
-
-function deleteUser(req, res) {
+        //function for deleting account
+function deleteUser(req, res) {   
     var userId = req.user.sub;
     if (req.params._id !== userId) {
-        // can only delete own account
+        // This limits the users so that they can only delete their own account
         return res.status(401).send('You can only delete your own account');
     }
-
-    userService.delete(userId)
+        
+    userService.delete(userId)    
         .then(function () {
             res.sendStatus(200);
         })

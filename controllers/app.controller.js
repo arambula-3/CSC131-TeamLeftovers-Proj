@@ -5,7 +5,7 @@ var router = express.Router();
 router.use('/', function (req, res, next) {
     if (req.path !== '/login' && !req.session.token) {
         //return res.redirect('/login?returnUrl=' + encodeURIComponent('/app' + req.path));
-        return res.redirect('/login?returnUrl=' + encodeURIComponent('/app' + req.path));
+        return res.redirect('/homepage?returnUrl=' + encodeURIComponent('/app' + req.path));
     }
 
     next();
