@@ -80,6 +80,17 @@ app.get('/file/:filename', (req, res) => {
   });
 });
 
+app.delete('/file/:filename', (req, res) => {
+    gfs.find({filename: req.params.filename}).toArray(function (err, files) {
+        if(files.length===0){
+            return res.status(400).send({
+                message: 'File not found'
+            });
+        }
+        gfs.delete(files[0]._id);
+    });
+});
+
 app.get('/files', (req, res) => {
   let filesData = [];
   let count = 0;
