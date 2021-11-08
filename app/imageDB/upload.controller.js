@@ -1,5 +1,5 @@
 const upload = require("./uploadMiddleware");
-
+// made changes to fix merge conflicts
 const uploadFile = async (req, res) => {
   try {
     await upload(req, res);
