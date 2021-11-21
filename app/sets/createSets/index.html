@@ -1,2 +1,47 @@
-<h1>Create Sets!!</h1>
-"Create Set Template"
+<h1>Create Sets</h1>
+<body>
+    <form>
+        <label for="setName">Set name:</label>
+        <input type="text" name="setName" id="setName"/>
+        <label for="userName">Username to Assign Set:</label>
+        <input type="text" name="userName" id = "userName"/>
+        <button onclick="setCreate()">Submit</button>
+    </form>
+
+    <hr />
+
+    <h4>Click on Images to Add to Set</h4>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+      <script>
+        const set = [];
+        const images = [];
+        $(document).ready(function() {
+          $.getJSON("http://localhost:3000/files", function (data) {
+            for (let i = 0; i < data.length; i++){
+              var optionString = data[i].url;
+              var img = document.createElement('img');
+              img.src = "" + optionString;
+              img.id = "img" + i;
+              img.style.width = "300px";
+              //img.style.height = "auto";
+              img.style.height = "300px"
+              images.push(img);
+              document.getElementById('div1').appendChild(img);
+            }
+            for (let i = 0; i < images.length; i++){
+              images[i].addEventListener("click", () => {
+                set.push(images[i].src);
+              });
+            }
+          });
+        });
+        function setCreate(){
+            set.push(document.getElementById("setName").value);
+            //need to error when no user selected for set
+            set.push(document.getElementById("userName").value);
+            fetch("http://localhost:3000/createSet", { method:'POST', headers: {'Content-Type': 'application/json', }, body: JSON.stringify(set)});
+        }
+      </script>
+      <div1 id = "div1"></div1>
+</body>

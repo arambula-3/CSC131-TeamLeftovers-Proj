@@ -81,18 +81,23 @@
       <script>
         $(document).ready(function() {
           $.getJSON("http://localhost:3000/files", function (data) {
+            const img_array = [];
             for (let i = 0; i < data.length; i++){
               var optionString = data[i].url;
               var img = document.createElement('img');
               img.src = "" + optionString;
               img.id = "img" + i;
               img.style.width = "300px";
-              img.style.height = "auto";
-              img.addEventListener("click", () => {
-                img.remove();
-                fetch(img.src, { method:'DELETE'});
-              });
+              //img.style.height = "auto";
+              img.style.height = "300px";
+              img_array.push(img)
               document.getElementById('div1').appendChild(img);
+            }
+            for (let i = 0; i < img_array.length; i++){
+              img_array[i].addEventListener("click", () => {
+                img_array[i].remove();
+                fetch(img_array[i].src, { method:'DELETE'});
+              });
             }  
           });
         });

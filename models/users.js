@@ -7,5 +7,6 @@ module.exports = mongoose.model('User', {
   lastName: {type : String, default: ''},
   username : {type : String, default: ''},
   password : {type : String, default: ''},
-  level : {type : String, default: ''}
+  level : {type : String, default: ''},
+  sets: {type: Array, default: ''}  // sets: [set1, set2, etc.]
 });

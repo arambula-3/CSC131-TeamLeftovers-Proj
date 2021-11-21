@@ -1,2 +1,25 @@
-<h1>Edit Sets!!</h1>
-"Edit Set Template"
+<h1>Click on a Set to Edit it</h1>
+<body>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+      <script>
+        $(document).ready(function() {
+            const setLst = [];
+          $.getJSON("http://localhost:3000/sets", function (data) {
+            for (let i = 0; i < data.length; i++){
+              var set = document.createElement("BUTTON");
+              set.name = "" + data[i].setName + i;
+              set.innerHTML = "" + data[i].setName; 
+              document.getElementById('div1').appendChild(set);
+              setLst.push(set);
+            }
+            for (let i = 0; i < setLst.length; i++){
+              setLst[i].addEventListener("click", () => {
+                location.href = ("http://localhost:3000/set/" + setLst[i].innerHTML + "/edit");
+              });
+            }
+          });
+        });
+      </script>
+      <div1 id = "div1"></div1>
+</body>

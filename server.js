@@ -116,6 +116,73 @@ app.get('/files', (req, res) => {
 
 });
 
+app.post('/createSet', (req, res) => {
+    console.log(req.body);
+    let setData = [];
+    setData = req.body;
+    let setName = setData[setData.length - 2];
+    let userName = setData[setData.length - 1];
+    let db = mongo.db('mongodb://team:f505zQAq94T3TcZI@csc131-project-shard-00-00.mvprq.mongodb.net:27017,csc131-project-shard-00-01.mvprq.mongodb.net:27017,csc131-project-shard-00-02.mvprq.mongodb.net:27017/userDB?ssl=true&replicaSet=atlas-jpao4r-shard-0&authSource=admin&retryWrites=true&w=majority', { native_parser: true });
+    db.bind('sets');
+    db.sets.insert({name: setName, user: userName, imgs: setData.slice(0, -2)});
+    db.bind('users');
+    db.users.update({username: userName}, {$push: {sets: {$each: [setName]}}}, {safe: true});
+})
+
+app.delete('/set/:setname/:username', (req, res) => {
+    let db = mongo.db('mongodb://team:f505zQAq94T3TcZI@csc131-project-shard-00-00.mvprq.mongodb.net:27017,csc131-project-shard-00-01.mvprq.mongodb.net:27017,csc131-project-shard-00-02.mvprq.mongodb.net:27017/userDB?ssl=true&replicaSet=atlas-jpao4r-shard-0&authSource=admin&retryWrites=true&w=majority', { native_parser: true });
+    db.bind('sets');
+    db.sets.deleteOne({name: req.params.setname});
+    db.bind('users');
+    db.users.update({username: ""+req.params.username}, {$pull: {sets: {$in : [""+req.params.setname]}}});
+})
+
+app.get('/set/:setname', (req, res) => {
+    let db = mongo.db('mongodb://team:f505zQAq94T3TcZI@csc131-project-shard-00-00.mvprq.mongodb.net:27017,csc131-project-shard-00-01.mvprq.mongodb.net:27017,csc131-project-shard-00-02.mvprq.mongodb.net:27017/userDB?ssl=true&replicaSet=atlas-jpao4r-shard-0&authSource=admin&retryWrites=true&w=majority', { native_parser: true });
+    db.bind('sets');
+    db.sets.find({name: req.params.setname}, {imgs: 1, _id: 0}).toArray(function(error, documents) {
+        res.json(documents[0].imgs);
+    }); 
+})
+
+app.get('/set/:setname/view', (req, res) => {
+    res.sendFile(__dirname + '/app/sets/viewSets/oneSetView.html');
+})
+
+app.get('/set/:setname/edit', (req, res) => {
+    res.sendFile(__dirname + '/app/sets/editSets/oneSetEdit.html');
+})
+
+app.delete("/set/:setname/edit/:image", (req, res) => {
+    let db = mongo.db('mongodb://team:f505zQAq94T3TcZI@csc131-project-shard-00-00.mvprq.mongodb.net:27017,csc131-project-shard-00-01.mvprq.mongodb.net:27017,csc131-project-shard-00-02.mvprq.mongodb.net:27017/userDB?ssl=true&replicaSet=atlas-jpao4r-shard-0&authSource=admin&retryWrites=true&w=majority', { native_parser: true });
+    db.bind('sets');
+    db.sets.update({name: ''+req.params.setname}, {$pull: {imgs: {$in : ["http://localhost:3000/file/" + req.params.image]}}});
+})
+
+app.post("/set/:setname/edit/:image", (req, res) => {
+    let db = mongo.db('mongodb://team:f505zQAq94T3TcZI@csc131-project-shard-00-00.mvprq.mongodb.net:27017,csc131-project-shard-00-01.mvprq.mongodb.net:27017,csc131-project-shard-00-02.mvprq.mongodb.net:27017/userDB?ssl=true&replicaSet=atlas-jpao4r-shard-0&authSource=admin&retryWrites=true&w=majority', { native_parser: true });
+    db.bind('sets');
+    db.sets.update({name: ''+req.params.setname}, {$push: {imgs: {$each: ["http://localhost:3000/file/" + req.params.image]}}}, {safe: true});
+})
+
+var Set = require('./models/sets');
+app.get('/sets', (req, res) => {
+    Set.find(function(err, sets) {
+        // if there is an error retrieving, send the error.
+        // nothing after res.send(err) will execute
+        let setsData = [];
+        if (err) {
+           res.send(err);
+        }
+        for (let i = 0; i < sets.length; i++) {
+            //setsData.push(sets[i].name);
+            //add username of set
+            setsData.push({"setName": sets[i].name, "setUser": sets[i].user})
+        }
+        res.json(setsData); // return all set names
+     });
+  })
+
 // startup our app at http://localhost:3000
 app.listen(port);
 console.log('Example app listening on port 3000!');

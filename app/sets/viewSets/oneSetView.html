@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+  padding: 5px;
+}
+
+/* Create three equal columns that sits next to each other */
+.column {
+  flex: 33.33%;
+  padding: 5px;
+}
+</style>
+</head>
+<body>
+
+<h2>Images Side by Side</h2>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+      <script>
+        $(document).ready(function() {
+            const setLst = [];
+          $.getJSON(""+window.location.href.toString().split("/view")[0], function (data) {
+            const img_array = [];
+            for (let i = 0; i < data.length; i++){
+              var optionString = data[i];
+              var img = document.createElement('img');
+              img.src = optionString;
+              img.id = "img" + i;
+              img.style.width = "300px";
+              img.style.height = "300px";
+              img_array.push(img)
+              if (data.length <= 4){
+                var column = document.createElement('div');
+                column.id = "column" + i;
+                column.class = "column";
+                column.style.flex = (100 / data.length);
+                document.getElementById('row1').appendChild(column);
+                document.getElementById(column.id).appendChild(img);
+              } else {
+                if (data.length <= 4) {
+                  var column = document.createElement('div');
+                  column.id = "column1" + i;
+                  column.class = "column";
+                  column.style.flex = (100 / data.length);
+                  document.getElementById('row1').appendChild(column);
+                  document.getElementById(column.id).appendChild(img);
+                } else if (data.length <= 6) {
+                    if (i < 3) {
+                      var column = document.createElement('div');
+                      column.id = "column1" + i;
+                      column.class = "column";
+                      column.style.flex = (100 / data.length);
+                      document.getElementById('row1').appendChild(column);
+                      document.getElementById(column.id).appendChild(img);
+                    } else {
+                      var column = document.createElement('div');
+                      column.id = "column2" + i;
+                      column.class = "column";
+                      column.style.flex = (100 / data.length);
+                      document.getElementById('row2').appendChild(column);
+                      document.getElementById(column.id).appendChild(img);
+                    }
+                } else if (data.length <= 8) {
+                  if (i < 4) {
+                    var column = document.createElement('div');
+                    column.id = "column1" + i;
+                    column.class = "column";
+                    column.style.flex = (100 / data.length);
+                    document.getElementById('row1').appendChild(column);
+                    document.getElementById(column.id).appendChild(img);
+                  } else {
+                    var column = document.createElement('div');
+                    column.id = "column2" + i;
+                    column.class = "column";
+                    column.style.flex = (100 / data.length);
+                    document.getElementById('row2').appendChild(column);
+                    document.getElementById(column.id).appendChild(img);
+                  }
+                } else if (data.length <= 10) {
+                  img.style.width = "250px";
+                  img.style.height = "250px";
+                  if (i < 5) {
+                    var column = document.createElement('div');
+                    column.id = "column1" + i;
+                    column.class = "column";
+                    column.style.flex = (100 / data.length);
+                    document.getElementById('row1').appendChild(column);
+                    document.getElementById(column.id).appendChild(img);
+                  } else {
+                    var column = document.createElement('div');
+                    column.id = "column2" + i;
+                    column.class = "column";
+                    column.style.flex = (100 / data.length);
+                    document.getElementById('row2').appendChild(column);
+                    document.getElementById(column.id).appendChild(img);
+                  }
+                } else {
+                  img.style.width = "200px";
+                  img.style.height = "200px";
+                  if (i < 6) {
+                    var column = document.createElement('div');
+                    column.id = "column1" + i;
+                    column.class = "column";
+                    column.style.flex = (100 / data.length);
+                    document.getElementById('row1').appendChild(column);
+                    document.getElementById(column.id).appendChild(img);
+                  } else {
+                    var column = document.createElement('div');
+                    column.id = "column2" + i;
+                    column.class = "column";
+                    column.style.flex = (100 / data.length);
+                    document.getElementById('row2').appendChild(column);
+                    document.getElementById(column.id).appendChild(img);
+                  }
+                }
+              }
+            }
+          });
+          //document.getElementById('row1').innerText = window.location.href.toString().split("/view")[0];
+        });
+      </script>
+
+<div id = "row1" class="row">
+</div>
+<div id = "row2" class="row">
+</div>
+</body>
+</html>

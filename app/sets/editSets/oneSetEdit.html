@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1 id = "h1">Set: setname</h1>
+<h3 id = "h3">Click on Image to Remove it From the Set</h3>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+          const set_array = [];
+          $.getJSON(""+window.location.href.toString().split("/edit")[0], function (data) {
+              var set_name = window.location.href.toString().split("/", 5)[4];
+              document.getElementById('h1').innerText = "Set: " + set_name;
+              //const img_array = [];
+              for (let i = 0; i < data.length; i++){
+                  var optionString = data[i];
+                  var img = document.createElement('img');
+                  img.src = optionString;
+                  img.id = "img" + i;
+                  img.style.width = "300px";
+                  img.style.height = "300px";
+                  set_array.push(img)
+                  document.getElementById('div1').appendChild(img);
+              }
+              for (let i = 0; i < set_array.length; i++){
+                  set_array[i].addEventListener("click", () => {
+                      //delete image from set
+                      set_array[i].remove();
+                      var img_name = set_array[i].src.split("file/")[1];
+                      fetch("http://localhost:3000/set/" + set_name + "/edit/" + img_name, { method:'DELETE'});
+                  });
+              }
+          });
+
+          $.getJSON("http://localhost:3000/files", function (data) {
+            const img_array = [];
+            for (let i = 0; i < data.length; i++){
+                //if (set_array[y].src != ""+data[i].url){
+                  var optionString = data[i].url;
+                  var img = document.createElement('img');
+                  img.src = "" + optionString;
+                  img.id = "img" + i;
+                  img.style.width = "300px";
+                  //img.style.height = "auto";
+                  img.style.height = "300px";
+                  img_array.push(img)
+                  document.getElementById('div2').appendChild(img);
+              //}
+            }
+            for (let i = 0; i < img_array.length; i++){
+              img_array[i].addEventListener("click", () => {
+                //add image to set
+                img_array[i].remove();
+                set_array.push(img_array[i]);
+                document.getElementById('div1').appendChild(img_array[i]);
+                var set_name = window.location.href.toString().split("/", 5)[4];
+                var img_name = img_array[i].src.split("file/")[1];
+                fetch("http://localhost:3000/set/" + set_name + "/edit/" + img_name, { method:'POST'});
+              });
+            }  
+          });
+        });
+    </script>
+
+    <div1 id = "div1"></div1>
+
+    <hr>
+
+    <h3 id = 'h2'>Click on Image to Add it to the Set</h3>
+      <div2 id = "div2"></div2>
+</body>
+</html>
+
