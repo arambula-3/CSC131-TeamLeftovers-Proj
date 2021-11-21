@@ -1,14 +1,48 @@
-<h1> Sign up form </h1>
+<style>
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+label{
+  cursor: pointer;
+  display: inline-block;
+  padding: 3px 6px;
+  text-align: left;
+  width: 75px;
+  vertical-align: top;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+}
+.bor {
+  background-color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  margin-bottom: 2px;
+}
+</style>
 
+<div class = "bor">
+<h1 style = "text-align: center">  Sign Up </h1>
+<div class = "label">
+<div class = "center">
 <form action="/register" method="POST">
-	<label for="firstName">First name</label>
-	<input type="text" name="firstName" id="firstName" class="form-control" value="<%= locals.firstName || '' %>" required />
-	<label for="lastName">Last name</label>
-	<input type="text" name="lastName" id="lastName" class="form-control" value="<%= locals.lastName || '' %>" required />
-	<label for="username">Username</label>
-	<input type="text" name="username" id="username" class="form-control" value="<%= locals.username || '' %>" required />
-	<label for="password">Password</label>
-	<input type="password" name="password" id="password" class="form-control" required />
-	<button type="submit" class="btn btn-primary">Register</button>
+	<label for="firstName">First name:</label>
+	<input type="text" name="firstName" id="firstName" class="form-control" value="<%= locals.firstName || '' %>" required /> <br>
+	<label for="lastName">Last name:</label>
+	<input type="text" name="lastName" id="lastName" class="form-control" value="<%= locals.lastName || '' %>" required /> <br>
+	<label for="username">Username:</label>
+	<input type="text" name="username" id="username" class="form-control" value="<%= locals.username || '' %>" required /> <br>
+	<label for="password">Password:</label>
+	<input type="password" name="password" id="password" class="form-control" required /> <br>
+	<br>
+	<button type="submit" class="btn btn-primary" style = "margin-left: 94px;">Continue</button>
 </form>
-<li><a href="/login">Login</a></li>
+</div>
+</div>
+</div>
+<li style = "text-align: center"><a href="/login">Login</a></li>
