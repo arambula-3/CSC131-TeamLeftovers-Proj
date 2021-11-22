@@ -19,6 +19,7 @@
             for (let i = 0; i < setLst.length; i++){
               setLst[i].addEventListener("click", () => {
                 setLst[i].remove();
+				// Delete sets from the set database
                 fetch("http://localhost:3000/set/" + setLst[i].innerHTML +"/"+ userNameLst[i], { method:'DELETE'});
               });
             }
