@@ -33,6 +33,7 @@ mongoose.connect(db.url); //Mongoose connection created
 // frontend routes =========================================================
 
 // routes
+//users can view their sets but not rotate their sets
 app.use('/homepage', require('./controllers/homepage.controller'));
 app.use('/login', require('./controllers/login.controller'));
 app.use('/register', require('./controllers/register.controller'));
