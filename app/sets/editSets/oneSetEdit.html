@@ -4,7 +4,7 @@
 
 <h1 id = "h1">Set: setname</h1>
 <h3 id = "h3">Click on Image to Remove it From the Set</h3>
-
+ 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
@@ -26,7 +26,7 @@
               }
               for (let i = 0; i < set_array.length; i++){
                   set_array[i].addEventListener("click", () => {
-                      //delete image from set
+                      //able to delete image from set
                       set_array[i].remove();
                       var img_name = set_array[i].src.split("file/")[1];
                       fetch("http://localhost:3000/set/" + set_name + "/edit/" + img_name, { method:'DELETE'});
@@ -51,7 +51,7 @@
             }
             for (let i = 0; i < img_array.length; i++){
               img_array[i].addEventListener("click", () => {
-                //add image to set
+                //able to add image to set
                 img_array[i].remove();
                 set_array.push(img_array[i]);
                 document.getElementById('div1').appendChild(img_array[i]);
