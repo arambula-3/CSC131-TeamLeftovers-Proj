@@ -33,7 +33,6 @@ mongoose.connect(db.url); //Mongoose connection created
 // frontend routes =========================================================
 
 // routes
-//users can view their sets but not rotate their sets
 app.use('/homepage', require('./controllers/homepage.controller'));
 app.use('/login', require('./controllers/login.controller'));
 app.use('/register', require('./controllers/register.controller'));
@@ -185,6 +184,20 @@ app.get('/sets', (req, res) => {
         }
         res.json(setsData); // return all set names
      });
+  })
+
+  var User = require('./models/users');
+  app.get('/users', (req, res) => {
+    User.find(function(err, users) {
+        let userData = [];
+        if (err) {
+            res.send(err);
+        }
+        for (let i = 0; i < users.length; i++) {
+            userData.push(users[i].username)
+        }
+        res.json(userData);
+    });
   })
 
 // startup our app at http://localhost:3000

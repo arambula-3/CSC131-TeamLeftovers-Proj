@@ -13,19 +13,39 @@
         <ul class="nav nav-tabs">
             <!--Got the logout to work after logging out user will be taken to the login page-->
             <li ng-class="{active: activeTab === 'home'}"><a ui-sref="home">Home</a></li>
-            <li ng-class="{active: activeTab === 'account'}"><a ui-sref="account">Account</a></li>
-            <!-- image DB tab -->
-            <li ng-class="{active: activeTab === 'imageDB'}"><a ui-sref="imageDB">Image Database</a></li>
-            <li ng-class="{active: activeTab === 'viewSets'}"><a ui-sref="viewSets">View Sets</a></li>
-            <li ng-class="{active: activeTab === 'createSets'}"><a ui-sref="createSets">Create Sets</a></li>
-            <li ng-class="{active: activeTab === 'editSets'}"><a ui-sref="editSets">Edit Sets</a></li>
-            <li ng-class="{active: activeTab === 'deleteSets'}"><a ui-sref="deleteSets">Delete Sets</a></li>
+            <li ng-class="{active: activeTab === 'account'}"><a ui-sref="account" id = "account">Account</a></li>
+            <li ng-class="{active: activeTab === 'viewSets'}"><a ui-sref="viewSets" id = "viewSets">View Sets</a></li>
+             <!-- Hidden tabs to normal users -->
+            <li ng-class="{active: activeTab === 'imageDB'}"><a ui-sref="imageDB" id = "imageDB" style="visibility: hidden">Image Database</a></li>
+            <li ng-class="{active: activeTab === 'createSets'}" ><a ui-sref="createSets" id = "createSets" style="visibility: hidden">Create Sets</a></li>
+            <li ng-class="{active: activeTab === 'editSets'}"><a ui-sref="editSets" id = "editSets" style="visibility: hidden">Edit Sets</a></li>
+            <li ng-class="{active: activeTab === 'deleteSets'}"><a ui-sref="deleteSets" id = "deleteSets" style="visibility: hidden">Delete Sets</a></li>
+            <!-- ^^^^Hidden tabs to normal users^^^^ -->
             <li><a href="/login" target="_self">Logout</a></li>
         </ul>
         <div class="flash-message" ng-if="flash">
             <div class="{{'alert alert-' + flash.type}}" ng-bind="flash.message"></div>
         </div>
     </header>
+
+    <div ng-controller="App.Controller as vm">
+        <input type="hidden" id="myValueFromController" value="{{vm.user.level}}" />
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        /// make other tabs visible to admins only
+        setTimeout(function(){
+            var data = document.getElementById("myValueFromController").value;
+            if (data == 'admin') {
+                document.getElementById('imageDB').style.visibility = "visible";
+                document.getElementById('createSets').style.visibility = "visible";
+                document.getElementById('editSets').style.visibility = "visible";
+                document.getElementById('deleteSets').style.visibility = "visible";
+            }
+        }, 500);
+    </script>
 
     <!-- main -->
     <main ui-view></main>

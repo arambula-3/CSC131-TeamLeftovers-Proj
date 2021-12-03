@@ -118,8 +118,8 @@ function update(_id, userParam) {
     function updateUser() {
         // fields to update
         var set = {
-            firstName: userParam.firstName,
-            lastName: userParam.lastName,
+            //firstName: userParam.firstName,
+            //lastName: userParam.lastName,
             username: userParam.username,
         };
 

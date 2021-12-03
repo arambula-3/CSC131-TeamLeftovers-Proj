@@ -4,7 +4,23 @@
     angular
         .module('app', ['ui.router'])
         .config(config)
+        .controller('App.Controller', Controller)
         .run(run);
+    
+    function Controller(UserService) {
+        var vm = this;
+
+        vm.user = null;
+
+        initController();
+
+        function initController() {
+            // get current user
+            UserService.GetCurrent().then(function (user) {
+                vm.user = user;
+            });
+        }
+    }
 
     function config($stateProvider, $urlRouterProvider) {
         // default route

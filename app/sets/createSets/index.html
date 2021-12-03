@@ -1,12 +1,26 @@
 <h1>Create Sets</h1>
 <body>
-    <form>
-        <label for="setName">Set name:</label>
+    <form name="form1" id="form1" >
+      <label for="setName">Set name:</label>
         <input type="text" name="setName" id="setName"/>
-        <label for="userName">Username to Assign Set:</label>
-        <input type="text" name="userName" id = "userName"/>
-        <button onclick="setCreate()">Submit</button>
-    </form>
+        <br><br>
+      Username to Assign Set: <select name="username" id="username">
+          <option value="" selected="selected">Please Input Set Name First</option>
+        </select>
+        <br><br>
+        <button onclick="setCreate()">Submit</button> 
+      </form>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+      <script>
+        $(document).ready(function() {
+          $.getJSON("http://localhost:3000/users", function (data) {
+            for (let i = 0; i < data.length; i++){
+              document.getElementById('username').options[document.getElementById('username').options.length] = new Option(data[i]);
+            }
+          });
+        });
+      </script>
 
     <hr />
 
@@ -39,7 +53,7 @@
         function setCreate(){
             set.push(document.getElementById("setName").value);
             //need to error when no user selected for set
-            set.push(document.getElementById("userName").value);
+            set.push(document.getElementById("username").value);
             fetch("http://localhost:3000/createSet", { method:'POST', headers: {'Content-Type': 'application/json', }, body: JSON.stringify(set)});
         }
       </script>
