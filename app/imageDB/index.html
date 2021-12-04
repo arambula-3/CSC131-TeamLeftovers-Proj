@@ -10,6 +10,30 @@
       div.preview-images > img {
         width: 30%;
       }
+
+      .accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+      }
+
+      .active, .accordion:hover {
+        background-color: #ccc; 
+      }
+
+      .panel {
+        padding: 0 18px;
+        display: none;
+        background-color: white;
+        overflow: hidden;
+}
     </style>
   </head>
 
@@ -26,8 +50,11 @@
           >
           <div>
             <label for="name">Image Title</label>
-            <input type="text" id="name" placeholder="Name" 
-                   value="" name="name" required>
+            <!-- <input type="text" id="name" placeholder="Name" 
+                   value="" name="name" required> -->
+            <select name="name" id="name">
+            <option value="" selected="selected" required>Image Names</option>
+            </select>
         </div>
             <div class="form-group">
               <input
@@ -51,6 +78,11 @@
       <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
       <script>
         $(document).ready(function() {
+          $.getJSON("http://localhost:3000/imagenames", function (data) {
+            for (let i = 0; i < data.length; i++){
+              document.getElementById('name').options[document.getElementById('name').options.length] = new Option(data[i]);
+            }
+          });
           let imagesPreview = function(input, placeToInsertImagePreview) {
             if (input.files) {
               let filesAmount = input.files.length;
@@ -76,12 +108,38 @@
 
       <h1>Uploaded Images to Database</h1>
       <h4>Click on Image to Delete it from the Database</h4>
+      <div0 id = "div0"></div0>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
       <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
       <script>
         $(document).ready(function() {
+          const acc_array = [];
+          $.getJSON("http://localhost:3000/imagenames", function (data) {
+            for (let i = 0; i < data.length; i++) {
+              var accordion_button = document.createElement('button');
+              var accordion_div = document.createElement('div');
+              var accordion_p = document.createElement('p');
+              accordion_div.classList.add('panel');
+              accordion_div.appendChild(accordion_p);
+              accordion_button.classList.add("accordion");
+              accordion_button.innerHTML = data[i];
+              accordion_button.appendChild(accordion_div);
+              accordion_button.addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.firstChild.nextSibling;
+                if (panel.style.display === "block") {
+                  panel.style.display = "none";
+                } else {
+                  panel.style.display = "block";
+                }
+              });
+              acc_array.push(accordion_button);
+              document.getElementById('div0').appendChild(accordion_button);
+            }
+          });
+
+          const img_array = [];
           $.getJSON("http://localhost:3000/files", function (data) {
-            const img_array = [];
             for (let i = 0; i < data.length; i++){
               var optionString = data[i].url;
               var img = document.createElement('img');
@@ -91,17 +149,31 @@
               //img.style.height = "auto";
               img.style.height = "300px";
               img_array.push(img)
-              document.getElementById('div1').appendChild(img);
+              var imageName = img.src.split("/", 5)[4];
+              imageName = imageName.split("-")[1];
+              for (let z = 0; z < acc_array.length; z++) {
+                if (acc_array[z].innerText == imageName) {
+                  acc_array[z].firstChild.nextSibling.firstChild.appendChild(img);
+                }
+              }
             }
             for (let i = 0; i < img_array.length; i++){
               img_array[i].addEventListener("click", () => {
-                img_array[i].remove();
-                fetch(img_array[i].src, { method:'DELETE'});
+                myFunction(i);
               });
             }  
           });
+          function myFunction(i) {
+            var imageName = img_array[i].src.split("/", 5)[4];
+            var confirmString = "Are you sure you want to delete the image: " + imageName + "? This will ruin sets with this image in it.";
+            var confirmation = confirm(confirmString);
+            if (confirmation == true){
+              img_array[i].remove();
+				      // Delete image from the image database
+              fetch(img_array[i].src, { method:'DELETE'});
+            }
+          }
         });
       </script>
-      <div1 id = "div1"></div1>
   </body>
 </html>

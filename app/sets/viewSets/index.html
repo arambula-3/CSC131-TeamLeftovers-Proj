@@ -1,17 +1,35 @@
-<h1>Click on a Set to View it</h1>
+<h1 id = "header">Click on a Set to View it</h1>
 <body>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <div ng-controller="sets/viewSets/viewSets.IndexController as vm">
+      <input type="hidden" id="myLevelFromController" value="{{vm.user.level}}" />
+    </div>
+    <div ng-controller="sets/viewSets/viewSets.IndexController as vm">
+      <input type="hidden" id="myUserFromController" value="{{vm.user.username}}" />
+    </div>
       <script>
-        $(document).ready(function() {
-            const setLst = [];
+        setTimeout(function(){
+          const setLst = [];
+          var user_level = document.getElementById("myLevelFromController").value;
+          var username = document.getElementById("myUserFromController").value;
           $.getJSON("http://localhost:3000/sets", function (data) {
             for (let i = 0; i < data.length; i++){
-              var set = document.createElement("BUTTON");
-              set.name = "" + data[i].setName + i;
-              set.innerHTML = "" + data[i].setName; 
-              document.getElementById('div1').appendChild(set);
-              setLst.push(set);
+              if (user_level == "user") {
+                if (data[i].setUser == username) {
+                  var set = document.createElement("BUTTON");
+                  set.name = "" + data[i].setName + i;
+                  set.innerHTML = "" + data[i].setName; 
+                  document.getElementById('div1').appendChild(set);
+                  setLst.push(set);
+                }
+              } else {
+                var set = document.createElement("BUTTON");
+                set.name = "" + data[i].setName + i;
+                set.innerHTML = "" + data[i].setName; 
+                document.getElementById('div1').appendChild(set);
+                setLst.push(set);
+              }
             }
             for (let i = 0; i < setLst.length; i++){
               setLst[i].addEventListener("click", () => {
@@ -19,7 +37,7 @@
               });
             }
           });
-        });
+        }, 500);
       </script>
       <div1 id = "div1"></div1>
 </body>

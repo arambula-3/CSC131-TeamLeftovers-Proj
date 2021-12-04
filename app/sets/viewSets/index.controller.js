@@ -1,8 +1,23 @@
-//Route for getting all the files
-const home = (req, res) => {
-  return res.sendFile(path.join(`${__dirname}./index.html`));
-};
-module.exports = {
-  getHome: home,
-  router
-};
+(function () {
+  'use strict';
+
+  angular
+      .module('app')
+      .controller('sets/viewSets/viewSets.IndexController', Controller);
+
+  function Controller(UserService) {
+      var vm = this;
+
+      vm.user = null;
+
+      initController();
+
+      function initController() {
+          // get current user
+          UserService.GetCurrent().then(function (user) {
+              vm.user = user;
+          });
+      }
+  }
+
+})();
