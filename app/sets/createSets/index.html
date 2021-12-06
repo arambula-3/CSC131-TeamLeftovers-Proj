@@ -38,6 +38,7 @@
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
       <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
       <script>
+        <!--Added a username dropdown menu to the page-->
         $(document).ready(function() {
           $.getJSON("http://localhost:3000/users", function (data) {
             for (let i = 0; i < data.length; i++){
