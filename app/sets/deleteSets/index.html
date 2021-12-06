@@ -27,7 +27,7 @@
             var confirmation = confirm(confirmString);
             if (confirmation == true){
               setLst[i].remove();
-				      // Delete sets from the set database
+				      // Delete sets from the set database 
               fetch("http://localhost:3000/set/" + setLst[i].innerHTML +"/"+ userNameLst[i], { method:'DELETE'});
             }
           }
