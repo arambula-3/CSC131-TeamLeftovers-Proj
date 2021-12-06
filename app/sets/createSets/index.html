@@ -57,7 +57,7 @@
       <script>
         const set = [];
         const images = [];
-        $(document).ready(function() {
+        $(document).ready(function() {   //Add any images to a custom set
           const acc_array = [];
           $.getJSON("http://localhost:3000/imagenames", function (data) {
             for (let i = 0; i < data.length; i++) {
