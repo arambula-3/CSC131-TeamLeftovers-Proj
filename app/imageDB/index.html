@@ -105,14 +105,14 @@
       </div>
 
       <hr />
-
+        
       <h1>Uploaded Images to Database</h1>
       <h4>Click on Image to Delete it from the Database</h4>
       <div0 id = "div0"></div0>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
       <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-      <script>
-        $(document).ready(function() {
+      <script> 
+        $(document).ready(function() { //images are grouped by types
           const acc_array = [];
           $.getJSON("http://localhost:3000/imagenames", function (data) {
             for (let i = 0; i < data.length; i++) {
@@ -162,8 +162,8 @@
                 myFunction(i);
               });
             }  
-          });
-          function myFunction(i) {
+          }); 
+          function myFunction(i) {  
             var imageName = img_array[i].src.split("/", 5)[4];
             var confirmString = "Are you sure you want to delete the image: " + imageName + "? This will ruin sets with this image in it.";
             var confirmation = confirm(confirmString);
