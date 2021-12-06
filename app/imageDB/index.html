@@ -169,7 +169,7 @@
             var confirmation = confirm(confirmString);
             if (confirmation == true){
               img_array[i].remove();
-				      // Delete image from the image database
+				      // Delete image from image database
               fetch(img_array[i].src, { method:'DELETE'});
             }
           }
