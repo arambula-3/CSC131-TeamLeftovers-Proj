@@ -117,8 +117,9 @@ function update(_id, userParam) {
 
     function updateUser() {
         // fields to update
-        var set = {
+        var set = { // got rid of the first name requirement
             //firstName: userParam.firstName,
+			// got rid of the last name requirement
             //lastName: userParam.lastName,
             username: userParam.username,
         };
