@@ -80,6 +80,21 @@
                 controller: 'sets/deleteSets/deleteSets.IndexController',
                 controllerAs: 'vm',
                 data: { activeTab: 'Delete Sets' }
+            })
+            // create and delete acounts
+            .state('userCreator', {
+                url: '/userCreator',
+                templateUrl: 'account-creator/register.html',
+                controller: 'controllers/register.controller.js',
+                controllerAs: 'vm',
+                data: { activeTab: 'Create Users' }
+            })
+            .state('userDelete', {
+                url: '/userDelete',
+                templateUrl: 'user-delete/index.html',
+                controller: 'user-delete/user-delete.IndexController',
+                controllerAs: 'vm',
+                data: { activeTab: 'Delete Users' }
             });
     }
 

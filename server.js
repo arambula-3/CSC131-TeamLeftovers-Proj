@@ -116,6 +116,15 @@ app.get('/files', (req, res) => {
 
 });
 
+// delete user and all data
+app.delete('/account/:username', (req, res) => {
+    let db = mongo.db('mongodb://team:f505zQAq94T3TcZI@csc131-project-shard-00-00.mvprq.mongodb.net:27017,csc131-project-shard-00-01.mvprq.mongodb.net:27017,csc131-project-shard-00-02.mvprq.mongodb.net:27017/userDB?ssl=true&replicaSet=atlas-jpao4r-shard-0&authSource=admin&retryWrites=true&w=majority', { native_parser: true });
+    db.bind('sets');
+    db.sets.deleteMany({user: req.params.username});
+    db.bind('users');
+    db.users.deleteOne({username: req.params.username});
+})
+
 // createSet
 app.post('/createSet', (req, res) => {
     console.log(req.body);
@@ -134,7 +143,8 @@ app.post('/createSet', (req, res) => {
 app.delete('/set/:setname/:username', (req, res) => {
     let db = mongo.db('mongodb://team:f505zQAq94T3TcZI@csc131-project-shard-00-00.mvprq.mongodb.net:27017,csc131-project-shard-00-01.mvprq.mongodb.net:27017,csc131-project-shard-00-02.mvprq.mongodb.net:27017/userDB?ssl=true&replicaSet=atlas-jpao4r-shard-0&authSource=admin&retryWrites=true&w=majority', { native_parser: true });
     db.bind('sets');
-    db.sets.deleteOne({name: req.params.setname});
+    ///added user argument
+    db.sets.deleteOne({name: req.params.setname, user: req.params.username});
     db.bind('users');
     db.users.update({username: ""+req.params.username}, {$pull: {sets: {$in : [""+req.params.setname]}}});
 })

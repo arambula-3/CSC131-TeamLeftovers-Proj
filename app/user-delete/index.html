@@ -1,0 +1,31 @@
+<h1>Delete Users</h1>
+<body>
+    <form name="form1" id="form1" >
+        Username of User to Delete: <select name="username" id="username">
+            <option value="" selected="selected"></option>
+          </select>
+          <br><br>
+          <button id = "button1" onclick="deleteUser()">Submit</button> 
+        </form>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script>
+          const user = [];
+          //Added a username dropdown menu to the page
+          $(document).ready(function() {
+            $.getJSON("http://localhost:3000/users", function (data) {
+              for (let i = 0; i < data.length; i++){
+                document.getElementById('username').options[document.getElementById('username').options.length] = new Option(data[i]);
+              }
+            });
+          });
+          function deleteUser(){
+            user.push(document.getElementById("username").value);
+            var confirmString = "Are you sure you want to delete the User: " + user[0] + "?";
+            var confirmation = confirm(confirmString);
+            if (confirmation == true){
+              fetch("http://localhost:3000/account/" + user[0], {method: 'DELETE'});
+            }
+        }
+        </script>
+</body>

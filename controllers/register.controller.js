@@ -23,13 +23,15 @@ router.post('/', function (req, res) {
                 error: response.body,
                 //firstName: req.body.firstName,
                 //lastName: req.body.lastName,
-                username: req.body.username
+                username: req.body.username,
+                level: req.body.level
             });
         }
 
         // return to login page with success message
         req.session.success = 'Registration successful';
-        return res.redirect('/login');
+        console.log(router.url);
+        return res.redirect("/app");
     });
 });
 

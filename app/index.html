@@ -20,6 +20,8 @@
             <li ng-class="{active: activeTab === 'createSets'}" ><a ui-sref="createSets" id = "createSets" style="visibility: hidden">Create Sets</a></li>
             <li ng-class="{active: activeTab === 'editSets'}"><a ui-sref="editSets" id = "editSets" style="visibility: hidden">Edit Sets</a></li>
             <li ng-class="{active: activeTab === 'deleteSets'}"><a ui-sref="deleteSets" id = "deleteSets" style="visibility: hidden">Delete Sets</a></li>
+            <li ng-class="{active: activeTab === 'userCreator'}"><a ui-sref="userCreator" id = "userCreator" style="visibility: hidden">Create Users</a></li>
+            <li ng-class="{active: activeTab === 'userDelete'}"><a ui-sref="userDelete" id = "userDelete" style="visibility: hidden">Delete Users</a></li>
             <!-- ^^^^Hidden tabs to normal users^^^^ -->
             <li><a href="/login" target="_self">Logout</a></li>
         </ul>
@@ -43,6 +45,8 @@
                 document.getElementById('createSets').style.visibility = "visible";
                 document.getElementById('editSets').style.visibility = "visible";
                 document.getElementById('deleteSets').style.visibility = "visible";
+                document.getElementById('userCreator').style.visibility = "visible";
+                document.getElementById('userDelete').style.visibility = "visible";
             }
         }, 500);
     </script>
@@ -70,5 +74,7 @@
     <script src="sets/createSets/index.controller.js"></script>
     <script src="sets/editSets/index.controller.js"></script>
     <script src="sets/deleteSets/index.controller.js"></script>
+    <script src="controllers/register.controller.js"></script>
+    <script src="user-delete/index.controller.js"></script>
 </body>
 </html>
